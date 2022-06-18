@@ -1,20 +1,8 @@
-from fastapi import FastAPI
 from fastapi.testclient import TestClient
-
-app = FastAPI()
-
-
-@app.get("/")
-async def read_main():
-    return {"msg": "Hello there"}
-
+from app.main import app 
 
 client = TestClient(app)
 
-def test_send():
-    response = client.post("/send",json={"message": "Hello there"})
-    assert response.status_code == 404
-    assert response.json() == {"msg": "fail"}
 
 def test_send():
     response = client.post("/send",json={"message": "Hello there"})

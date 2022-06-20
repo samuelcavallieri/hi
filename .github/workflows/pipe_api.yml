@@ -5,7 +5,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env: 
+      PYTHONPATH: .
     steps:
       - uses: actions/checkout@v1
       - name: Set up Python 3.9.13

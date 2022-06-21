@@ -3,7 +3,7 @@ name: Fast-Api
 on: [push]
 
 jobs:
-  build:
+  job1: 
     runs-on: ubuntu-latest
     env: 
       PYTHONPATH: .
@@ -22,3 +22,15 @@ jobs:
         run: |
           pip install pytest
           pytest .
+
+  job2:
+    needs: job1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1 

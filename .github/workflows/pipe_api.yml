@@ -40,9 +40,11 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build and push container image to registry 
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         run: |
           docker build -t sc-test . 
-          docker tag sc-test:latest ${{secrets.ECR}}/sc-test:latest
-          docker push ${{secrets.ECR}}/sc-test:latest
+          docker tag sc-test:latest $ECR_REGISTRY/sc-test:latest
+          docker push $ECR_REGISTRY/sc-test:latest
 
     
